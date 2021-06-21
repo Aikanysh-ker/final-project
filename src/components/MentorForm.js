@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { addMentor, fetchMentors } from "../store/actions/mentors";
+import { addMentor } from "../store/actions/mentors";
 import { useSelector } from "react-redux";
 
 const AddMentor = (id) => {

@@ -1,0 +1,6 @@
+export const FETCH_START = "FETCH_START";
+export const FETCH_END = "FETCH_END";
+export const SET_MENTORS = "MENTORS/SET_MENTORS";
+export const LOGIN_SUCCESS = "AUTH/LOGIN_SUCCESS";
+export const LOGIN_FAILURE = "AUTH/LOGIN_FAILURE";
+export const LOGOUT = "AUTH/LOGOUT";
