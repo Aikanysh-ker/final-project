@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Table, Modal, ModalBody, ModalHeader } from "reactstrap";
-import AddMentor from "../components/MentorForm";
+import MentorForm from "../components/MentorForm";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteMentor, setMentors } from "../store/actions/mentors";
+import { deleteMentor, fetchMentors } from "../store/actions/mentors";
 
 const Mentors = () => {
   let [modal, setModal] = useState(false);
@@ -51,18 +51,18 @@ const Mentors = () => {
                 <td>{mentor.isActive}</td>
                 <td>
                   <button
-                    onClick={() => {
-                      setSelectedId(id);
-                      setModal(true);
-                    }}
+                    // onClick={() => {
+                    //   setSelectedId(id);
+                    //   setModal(true);
+                    // }}
                   >
                     Edit
                   </button>
 
                   <button
-                    onClick={() => {
-                      dispatch(deleteMentor(id));
-                    }}
+                    // onClick={() => {
+                    //   dispatch(deleteMentor(id));
+                    // }}
                   >
                     Delete
                   </button>

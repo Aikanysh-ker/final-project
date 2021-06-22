@@ -2,11 +2,11 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { addMentor } from "../store/actions/mentors";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const AddMentor = (id) => {
   let mentors = useSelector((state) => state.mentors);
-
+let dispatch = useDispatch()
   let mentorData = {};
   if (id == 0) {
     mentorData = {
