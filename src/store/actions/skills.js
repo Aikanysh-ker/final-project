@@ -14,7 +14,8 @@ export const fetchSkills = () => (dispatch) => {
   fetch(`${API_URL}public-api/skills`)
     .then((r) => r.json())
     .then((data) => {
-      dispatch(setSkills(data));
+      console.log("SKILLS", data);
+      dispatch(setSkills(data.list));
       dispatch(endFetch());
     });
 };
@@ -45,6 +46,23 @@ export const deleteSkill = (id) => (dispatch) => {
     .then((r) => r.json())
     .then((data) => {
       dispatch(deleteSkill(data));
+      dispatch(endFetch());
+    });
+};
+
+export const editSkill = (id) => (dispatch) => {
+  dispatch(startFetch());
+  let request = {
+    method: "PUT",
+    body: JSON.stringify(id),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  fetch(`${API_URL}public-api/skill/${id}`, request)
+    .then((r) => r.json())
+    .then((data) => {
+      dispatch(editSkill(data));
       dispatch(endFetch());
     });
 };

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Table, Modal, ModalBody, ModalHeader } from "reactstrap";
+import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteMentor, fetchMentors } from "../store/actions/mentors";
+import { deleteSkill, fetchSkills } from "../store/actions/skills";
+import SkillForm from "../components/SkillForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt, faEdit } from "@fortawesome/free-regular-svg-icons";
 
-const Skills = () => {
+const Skills = (id) => {
   let [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const toggle = () => setModal(!modal);
 
   useEffect(() => {
     dispatch(fetchSkills());
-  });
+  }, []);
 
   let [selectedId, setSelectedId] = useState(0);
 
@@ -23,55 +26,70 @@ const Skills = () => {
       {loading ? (
         <div className="alert alert-danger">Loading ...</div>
       ) : (
-        <Table className="container">
-          <thead>
-            <tr>
-              <th>id</th>
-              <th>Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {skills.map((skill) => (
-              <tr>
-                <td>{mentor.id}</td>
-                <td>{mentor.name}</td>
-                <td>
-                  <button
-                  // onClick={() => {
-                  //   setSelectedId(id);
-                  //   setModal(true);
-                  // }}
-                  >
-                    Edit
-                  </button>
+        <div className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <div className="table-responsive">
+            <table className="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>id</th>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {!skills.length
+                  ? "not found"
+                  : skills.map((skill) => (
+                      <tr>
+                        <td>{skill.id}</td>
+                        <td>{skill.name}</td>
+                        <td>
+                          <button
+                            className="btn-icon"
+                            onClick={() => {
+                              setSelectedId(id);
+                              setModal(true);
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faEdit} />
+                          </button>
 
-                  <button
-                  // onClick={() => {
-                  //   dispatch(deleteMentor(id));
-                  // }}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-            <button
-              onClick={() => {
-                setSelectedId(0);
-                toggle();
-              }}
-            >
-              Add a skill
-            </button>
-          </tbody>
-        </Table>
+                          <button
+                            className="btn-icon"
+                            onClick={() => {
+                              dispatch(deleteSkill(id));
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faTrashAlt} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                <button
+                  className="btn btn-add"
+                  onClick={() => {
+                    setSelectedId(0);
+                    toggle();
+                  }}
+                >
+                  Add a skill
+                </button>
+              </tbody>
+            </table>
+          </div>
+        </div>
       )}
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Add a new skill</ModalHeader>
         <ModalBody>
           <SkillForm id={selectedId} />
         </ModalBody>
+        <ModalFooter>
+          <button className="btn btn-add" type="submit">
+            Add
+          </button>
+          <button className="btn btn-add">Cancel</button>
+        </ModalFooter>
       </Modal>
     </>
   );
